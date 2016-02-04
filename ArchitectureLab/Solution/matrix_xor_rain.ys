@@ -1,0 +1,53 @@
+        .pos 0
+matrixFun:
+        pushl %ebp
+        rrmovl %esp,%ebp
+        pushl %esi
+        pushl %ebx
+        pushl %edi
+        xorl %esi,%esi
+        xorl %ebx,%ebx
+        xorl %edi,%edi
+        xorl %edx,%edx
+        irmovl 0,%esi
+        jmp L2
+L7:
+        irmovl 0,%ebx
+        jmp L3
+
+L6:
+        irmovl 0,%edx
+        irmovl 0,%edi
+        jmp L4
+
+L5:
+        addl 1,%edi
+        sum=sum+(A^B)......
+
+L4:
+        addl 1,%ebx
+        rrmovl %edi,%ecx
+        cmpl 8(%ebp),%ecx
+        jg L5
+        cij=sum
+
+L3:
+        addl 1,%esi
+        movl %ebx,%ecx
+        cmpl 8(%ebp),%ecx
+        jg L6
+
+L2:
+        rrmovl %esi,%ecx
+        cmpl 8(%ebp),%ecx
+        jg L7
+        call Done
+
+Done:
+        popl %edi
+        popl %ebx
+        popl %esi
+        rrmovl %ebp,%esp
+        popl %ebp
+        ret
+

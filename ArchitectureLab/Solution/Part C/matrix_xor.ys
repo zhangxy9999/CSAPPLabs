@@ -1,0 +1,110 @@
+matrixFun:
+       pushl %ebp
+       rrmovl %esp, %ebp
+       pushl %esi
+       pushl %ebx
+       pushl %edi
+       xorl %esi, %esi
+       xorl %ebx, %ebx
+       xorl %edi, %edi
+       xorl %edx, %edx
+
+L4:
+        irmovl 0,%ebx
+
+L5:
+        irmovl 0,%edi
+        irmovl 0,%edx
+
+L6:
+        irmovl 0,%eax
+	    irmovl 0,%ecx
+	    pushl %edx
+
+L1:
+	    addl %esi,%eax
+        irmovl 1,%edx
+        addl %edx,%ecx
+	    mrmovl 8(%ebp),%edx
+	    subl %ecx,%edx
+	    jg L1
+
+        mrmovl 12(%ebp),%ecx
+	    addl %edi,%eax
+	    addl %eax,%eax
+	    addl %eax,%eax
+	    addl %ecx,%eax
+	    pushl %eax
+	    irmovl 0,%ecx
+	    irmovl 0,%eax
+
+L2:
+	    addl %edi,%eax
+	    irmovl 1,%edx
+	    addl %edx,%ecx
+	    mrmovl 8(%ebp),%edx
+	    subl %ecx,%edx
+	    jg L2
+
+        mrmovl 16(%ebp),%ecx
+	    addl %ebx,%eax
+	    addl %eax,%eax
+	    addl %eax,%eax
+	    addl %ecx,%eax
+	    rrmovl %eax,%ecx
+	    popl %eax
+	    mrmovl (%eax),%eax
+	    mrmovl (%ecx),%ecx
+	    xorl %eax,%ecx
+	    popl %edx
+	    addl %ecx,%edx
+	    irmovl 1,%ecx
+	    addl %ecx,%edi
+	    rrmovl %edi,%ecx
+	    mrmovl 8(%ebp),%eax
+	    subl %ecx,%eax
+	    jg L6
+
+	    irmovl 0,%eax
+	    irmovl 0,%ecx
+	    pushl %edx
+
+L3:
+	    addl %esi,%eax
+	    irmovl 1,%edx
+	    addl %edx,%ecx	
+	    mrmovl 8(%ebp),%edx
+	    subl %ecx,%edx
+	    jg L3
+        mrmovl 20(%ebp),%ecx
+	    addl %ebx,%eax
+	    addl %eax,%eax
+	    addl %eax,%eax
+	    addl %ecx,%eax
+	    popl %edx
+	    rmmovl %edx,(%eax)
+
+	    pushl %ecx
+	    irmovl 1,%ecx
+	    addl %ecx,%ebx
+	    popl %ecx
+	    rrmovl %ebx,%ecx
+	    mrmovl 8(%ebp),%eax
+	    subl %ecx,%eax
+	    jg L5
+
+	    pushl %ecx
+	    irmovl 1,%ecx
+	    addl %ecx,%esi
+	    popl %ecx
+	    mrmovl 8(%ebp),%eax
+	    subl %esi,%eax
+	    jg L4
+	
+Done : 
+        popl %edi
+        popl %ebx
+        popl %esi
+        rrmovl %ebp, %esp
+        popl %ebp
+        ret
